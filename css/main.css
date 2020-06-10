@@ -370,7 +370,7 @@ textarea {
 #container {
   max-width: 992px;
   margin: 0 auto;
-  padding-bottom: 50px;
+  padding: 0 5px 50px 5px;
 }
 
 .header {
@@ -454,9 +454,8 @@ input {
 #output {
   display: grid;
   grid-template-columns: 90px 90px 90px 90px 90px 90px 90px 90px 90px;
-  grid-template-rows: 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px;
   grid-gap: 7px;
-  grid-template-areas: ". . . . . . . . . ." ". . . . . . . . . ." ". . . . . . . . . ." ". . . . . . . . . ." ". . . . . . . . . ." ". . . . . . . . . ." ". . . . . . . . . ." ". . . . . . . . . ." ". . . . . . . . . ." ". . . . . . . . . .";
+  grid-template-areas: ". . . . . . . . . .";
   justify-content: center;
 }
 
@@ -516,4 +515,33 @@ input {
   border-color: black;
   text-align: center;
   color: black;
+}
+
+@media (max-width: 992px) {
+  #container_input {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #output {
+    display: grid;
+    grid-template-columns: 90px 90px 90px 90px 90px;
+    grid-template-rows: 60px 60px 60px;
+    grid-gap: 7px;
+    grid-template-areas: ". . . . .";
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  #container_input {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  #output {
+    display: grid;
+    grid-template-columns: 90px 90px 90px;
+    grid-gap: 7px;
+    grid-template-areas: ". . .";
+    justify-content: center;
+  }
 }
