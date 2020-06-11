@@ -1,12 +1,23 @@
-function innit () {
-  document.getElementById('output');
+'use strict'
+function innit() {
+  fizzBuzz();
+  window.output = document.getElementById('output');
   const clearButton = document.getElementById('clear');
   clearButton.addEventListener('click', clearField);
   const submitCustom = document.getElementById('buzzit');
   submitCustom.addEventListener('click', generate);
 }
 
-const fizzBuzz = function () {
+function getElementValue(id) {
+  return document.getElementById(id).value
+}
+
+function setCell(outputContainer, name, firstValue) {
+  outputContainer.appendChild(document.createTextNode(firstValue || name));
+  outputContainer.setAttribute('class', name);
+}
+
+function fizzBuzz() {
   clearField();
   for(let i = 1; i<101; i++){
     let outputContainer = document.createElement('div');
@@ -14,26 +25,19 @@ const fizzBuzz = function () {
     outputContainer.appendChild(outputContainerName);
     output.appendChild(outputContainer).setAttribute('id', 'myid_');
 
-
     if (i % 3 ===0 && i % 5 === 0) {
-      outputContainer.appendChild(document.createTextNode('fizzbuzz'));
-      outputContainer.setAttribute('class', "fizzbuzz");
+      setCell(outputContainer,'fizzbuzz');
     } else if (i % 3 === 0 && i % 5 !== 0) {
-      outputContainer.appendChild(document.createTextNode('fizz'));
-      outputContainer.setAttribute('class', "fizz");
+      setCell(outputContainer,'fizz');
     } else if (i % 5 === 0 && i % 3 !== 0){
-      outputContainer.appendChild(document.createTextNode('buzz'));
-      outputContainer.setAttribute('class', "buzz");
+      setCell(outputContainer,'buzz');
     } else if (i % 3 !== 0 && i % 5 !== 0){
-      outputContainer.appendChild(document.createTextNode(i));
-      outputContainer.setAttribute('class', 'number');
+      setCell(outputContainer,'number', i);
     }
   }
-};
+}
 
-fizzBuzz();
-
-function clearField () {
+function clearField() {
   while (output.firstChild) {
     output.removeChild(output.firstChild);
   }
@@ -42,34 +46,25 @@ function clearField () {
 function generate() {
   clearField();
 
-  let inputFirstValue = document.getElementById('startValue').value;
-  let inputSecondValue = document.getElementById('endValue').value;
-  let fizzValue = document.getElementById('fizzValue').value;
-  let buzzValue = document.getElementById('buzzValue').value;
-  let a = inputFirstValue;
-  let b = inputSecondValue;
+  let inputFirstValue = getElementValue('startValue');
+  let inputSecondValue = getElementValue('endValue');
+  let fizzValue = getElementValue('fizzValue');
+  let buzzValue = getElementValue('buzzValue');
 
-  for (a; a<=b; a++){
+  for (inputFirstValue; inputFirstValue <= inputSecondValue; inputFirstValue++) {
     const outputContainer = document.createElement('div');
     const outputContainerName = document.createElement('h2');
     outputContainer.appendChild(outputContainerName);
     output.appendChild(outputContainer).setAttribute('id', 'myid_');
 
-    if (a % fizzValue === 0 && a % buzzValue === 0){
-      outputContainer.appendChild(document.createTextNode(' fizzbuzz'));
-      outputContainer.setAttribute('class', 'fizzbuzz');
-    }
-      else if (a % fizzValue === 0 && a % buzzValue !== 0) {
-      outputContainer.appendChild(document.createTextNode('fizz'));
-      outputContainer.setAttribute('class', 'fizz');
-    }
-      else if (a % buzzValue === 0 && a % fizzValue !== 0){
-      outputContainer.appendChild(document.createTextNode('buzz'));
-      outputContainer.setAttribute('class', 'buzz');
-    }
-      else if (a % fizzValue !== 0 && a % buzzValue !== 0){
-      outputContainer.appendChild(document.createTextNode(a));
-      outputContainer.setAttribute('class', 'number');
+    if (inputFirstValue % fizzValue === 0 && inputFirstValue % buzzValue === 0){
+      setCell(outputContainer,'fizzbuzz');
+    } else if (inputFirstValue % fizzValue === 0 && inputFirstValue % buzzValue !== 0) {
+      setCell(outputContainer,'fizz');
+    } else if (inputFirstValue % buzzValue === 0 && inputFirstValue % fizzValue !== 0){
+      setCell(outputContainer,'buzz');
+    } else if (inputFirstValue % fizzValue !== 0 && inputFirstValue % buzzValue !== 0){
+      setCell(outputContainer,'number', inputFirstValue);
     }
   }
 }
